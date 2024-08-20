@@ -1,6 +1,6 @@
 ![wanned](assets/images/banner-transparent.png)
 
-### <p align="center"> Wanned • <a href="https://wanned.fun/" > wanned.fun </a> </p>
+### <p align="center">Wanned</p>
 
 <br>
 
