@@ -1,7 +1,6 @@
 import Game from './classes/Game.js'
-import Story from './classes/Story.js'
 import Menu from './classes/Menu.js'
-import checkDesktop from './utils/checkDesktop.js'
+import Story from './classes/Story.js'
 
 document.body.style.cursor = '../cursor.png'
 

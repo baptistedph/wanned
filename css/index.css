@@ -1,6 +1,6 @@
-@import url('https://files.bdph.me/reset.css');
 @import url('../assets/fonts/museo/museo.css');
 @import url('../assets/fonts/slkscr/slkscr.css');
+@import url('./reset.css');
 @import url('./story.css');
 @import url('./hud.css');
 @import url('./keys.css');
@@ -144,6 +144,10 @@ body {
   pointer-events: none;
 }
 
+.cursor img {
+  width: 100%;
+}
+
 #mobile-not-available {
   z-index: 99999;
   background: black;
@@ -158,6 +162,7 @@ body {
   padding: 2rem;
   line-height: 1.5em;
   text-align: center;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {

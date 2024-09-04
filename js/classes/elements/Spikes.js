@@ -1,23 +1,32 @@
 import TilesUtils from '../../utils/TilesUtils.js'
-import Element from './../Element.js'
-import Zone from '../Zone.js'
 import Action from '../Action.js'
 import Sound from '../Sound.js'
+import Zone from '../Zone.js'
+import Element from './../Element.js'
 
 class Spikes extends Element {
-  constructor(game, startX, startY, width, height, initialState, id = 'spike', intervalDuration = 2000) {
+  constructor(
+    game,
+    startX,
+    startY,
+    width,
+    height,
+    initialState,
+    id = 'spike',
+    intervalDuration = 2000
+  ) {
     super(
       id,
       game,
       [
         {
           image: '../../assets/elements/spikes/spikes-closed.png',
-          collisions: []
+          collisions: [],
         },
         {
           image: '../../assets/elements/spikes/spikes-opened.png',
-          collisions: []
-        }
+          collisions: [],
+        },
       ],
       width,
       height,
@@ -56,9 +65,12 @@ class Spikes extends Element {
       this.toggle()
       this.lastIntervalTriggered = 0
 
-      if (!this.sound) {
-        this.sound = new Sound('../../assets/audios/spikes.mp3', game.soundVolume / (Math.log2(game.distanceFrom(game.mainCharacter, this) / 30) ** 2), false)
-      }
+      this.sound = new Sound(
+        '../../assets/audios/spikes.mp3',
+        game.soundVolume /
+          Math.log2(game.distanceFrom(game.mainCharacter, this) / 30) ** 4,
+        false
+      )
 
       this.sound.play()
     }, this.intervalDuration)
@@ -91,28 +103,54 @@ class Spikes extends Element {
   }
 
   get spikesZones() {
-    return [
-      new Zone(this.x, this.y, this.width, this.height)
-    ]
+    return [new Zone(this.x, this.y, this.width, this.height)]
   }
 
-  static makeSpikes(game, rawSpikes, builtSpikesSize, mapWidth, mapHeight, realMapWidth, realMapHeight, mapZoom, idMaker) {
+  static makeSpikes(
+    game,
+    rawSpikes,
+    builtSpikesSize,
+    mapWidth,
+    mapHeight,
+    realMapWidth,
+    realMapHeight,
+    mapZoom,
+    idMaker
+  ) {
     const {
       realTileWidth,
       realTileHeight,
       numberOfTilesByColumn,
-      numberOfTilesByRow
-    } = TilesUtils.calculateTileSize(rawSpikes, builtSpikesSize, mapWidth, mapHeight, realMapWidth, realMapHeight, mapZoom)
-    return TilesUtils.mapTilesToPositions(rawSpikes, numberOfTilesByColumn, numberOfTilesByRow, realTileWidth, realTileHeight, 5, false)
-      .map((position, i) => new Spikes(
-        game,
-        position.startX,
-        position.startY,
-        position.width * 2,
-        position.height * 4,
-        i % 2 === 0 ? 'closed' : 'open',
-        idMaker(position.tileId)
-      ))
+      numberOfTilesByRow,
+    } = TilesUtils.calculateTileSize(
+      rawSpikes,
+      builtSpikesSize,
+      mapWidth,
+      mapHeight,
+      realMapWidth,
+      realMapHeight,
+      mapZoom
+    )
+    return TilesUtils.mapTilesToPositions(
+      rawSpikes,
+      numberOfTilesByColumn,
+      numberOfTilesByRow,
+      realTileWidth,
+      realTileHeight,
+      5,
+      false
+    ).map(
+      (position, i) =>
+        new Spikes(
+          game,
+          position.startX,
+          position.startY,
+          position.width * 2,
+          position.height * 4,
+          i % 2 === 0 ? 'closed' : 'open',
+          idMaker(position.tileId)
+        )
+    )
   }
 }
 
